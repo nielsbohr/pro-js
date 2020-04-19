@@ -26,9 +26,9 @@
         console.log(symbol in object); // true
 
         const proxy = new Proxy(object, {
-        has(target, prop) {
-            return target.hasOwnProperty(prop);
-        }
+            has(target, prop) {
+                return target.hasOwnProperty(prop);
+            }
         });
 
         // с proxy
