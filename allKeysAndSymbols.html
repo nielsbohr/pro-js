@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function allKeysAndSymbols(object) {
+            let keys = [];
+
+            (function recursiveGetProperties(obj) {
+                keys = [
+                    ...keys,
+                    ...Object.getOwnPropertyNames(obj),
+                    ...Object.getOwnPropertySymbols(obj)
+                ]
+
+                const proto = Object.getPrototypeOf(obj); 
+
+                if (proto) recursiveGetProperties(proto);
+            })(object);
+
+            console.log(keys);
+        }
+
+        allKeysAndSymbols({});
+
+        const proto = { value: 42 };
+        const object = Object.create(proto);
+
+        Object.defineProperty(object, 'year', {
+            value: 2020,
+            writable: true,
+            configurable: true,
+            enumerable: false,
+        });
+
+        const symbol = Symbol('bazzinga');
+        object[symbol] = 42;
+
+        allKeysAndSymbols(object);
+    </script>
+</body>
+</html>
